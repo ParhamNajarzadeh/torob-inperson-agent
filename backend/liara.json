@@ -1,0 +1,11 @@
+{
+  "platform": "docker",
+  "app": "torob-agent-backend",
+  "port": 8000,
+  "healthCheck": {
+    "command": "curl -f http://localhost:8000/health || exit 1",
+    "interval": 30,
+    "timeout": 5,
+    "retries": 3
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "platform": "next",
+  "app": "torob-agent-frontend",
+  "port": 3000,
+  "build": {
+    "location": "iran"
+  }
+}

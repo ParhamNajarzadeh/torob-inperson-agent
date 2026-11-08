@@ -1,0 +1,22 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "*",
+        "command": "python3 -m backend.app.governance.security_guards --hook user_prompt_submit"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "outreach_and_real_shops_mcp:*",
+        "command": "python3 -m backend.app.graph.stage_guard --hook pre_tool_use"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "command": "python3 -m backend.app.graph.stage_guard --hook post_tool_prune"
+      }
+    ]
+  }
+}

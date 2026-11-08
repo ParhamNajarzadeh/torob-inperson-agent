@@ -1,0 +1,36 @@
+{
+  "mcpServers": {
+    "torob-catalog-mcp": {
+      "command": "python3",
+      "args": [
+        "-m",
+        "backend.app.mcp_servers.torob_catalog_mcp"
+      ],
+      "env": {
+        "TOROB_DUCKDB_PATH": "${env:TOROB_DUCKDB_PATH}",
+        "TOROB_DB_READONLY": "true"
+      }
+    },
+    "tehran-spatial-bourse-mcp": {
+      "command": "python3",
+      "args": [
+        "-m",
+        "backend.app.mcp_servers.tehran_spatial_bourse_mcp"
+      ],
+      "env": {
+        "TOROB_DUCKDB_PATH": "${env:TOROB_DUCKDB_PATH}"
+      }
+    },
+    "outreach-and-real-shops-mcp": {
+      "command": "python3",
+      "args": [
+        "-m",
+        "backend.app.mcp_servers.outreach_and_real_shops_mcp"
+      ],
+      "env": {
+        "METIS_API_KEY": "${env:METIS_API_KEY}",
+        "AGENT_VIRTUAL_USER_ID": "${env:AGENT_VIRTUAL_USER_ID}"
+      }
+    }
+  }
+}

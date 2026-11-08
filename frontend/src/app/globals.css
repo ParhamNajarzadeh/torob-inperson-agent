@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --torob-red: #D73948;
+  --torob-soft-bg: #FFF1F2;
+  --torob-canvas: #F8F9FA;
+}
+
+body {
+  direction: rtl;
+  font-family: 'Vazirmatn', system-ui, -apple-system, sans-serif;
+  font-feature-settings: "ss01";
+  background-color: var(--torob-canvas);
+  color: #0F172A;
+}

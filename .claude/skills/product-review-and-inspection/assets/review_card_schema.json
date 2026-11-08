@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "required": [
+    "product_id",
+    "overall_verdict",
+    "value_for_money_score",
+    "pros",
+    "cons",
+    "in_store_inspection_checklist"
+  ],
+  "additionalProperties": false
+}
