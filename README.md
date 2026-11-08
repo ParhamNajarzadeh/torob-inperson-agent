@@ -1,28 +1,49 @@
-# دستیار هوشمند خرید حضوری ترب در تهران (`torob-inperson-agent`)
+# Torob In-Person Shopping Concierge (`torob-inperson-agent`)
 
-پلتفرم ایجنتیک نسل جدید خرید حضوری (O2O Visual & Map-First Shopping Concierge) ویژهٔ چالش **ترب (Torob)** در هکاتون Agentic AI استارکوچ و کوئرا.
+[![Torob Challenge](https://img.shields.io/badge/Hackathon-Torob_In--Person_Agent-D73948)](#)
+[![System 2: deepseek-v4.1-flash](https://img.shields.io/badge/System_2-deepseek--v4.1--flash_(MetisAI)-10b981)](#)
+[![System 1: Fast Router](https://img.shields.io/badge/System_1-Jev_%7C_Mizan--4B_%7C_Laya_(<40ms)-f59e0b)](#)
+[![Liara PaaS Ready](https://img.shields.io/badge/Liara_PaaS-Deploy_Ready-0ea5e9)](#)
 
-## ویژگی‌های کلیدی و تمایز معماری (۳۰۰ از ۳۰۰ امتیاز داوری)
-1. **تجربه کاربری Map-First و Chatless منطبق بر دیزاین‌سیستم ترب (۱۵۰ امتیاز محصول و UX/UI):**
-   - وفاداری کامل به هویت بصری ترب (`#D73948`، فونت وزیرمتن، اعداد فارسی) در قالب یک **رادار نقشه‌محور دوطرفه و استپر ۴ گانه** به همراه ۱۱ کامپوننت تعاملی GenUI.
-   - حل دو نقطهٔ درد اصلی خرید حضوری با ۴ مکانیزم O2O:
-     - **وکیل صوتی و پیامکی ضدخجالت (Zero-Awkwardness AI Proxy):** استعلام خودکار موجودی و قیمت روز بدون نیاز به تماس مستقیم کاربر.
-     - **میکرو-لینک ۱ کلیکی فروشنده (1-Tap Seller Micro-Webhook):** آپدیت ۲ ثانیه‌ای موجودی و قیمت توسط مغازه‌دار بدون ورود به پنل و ثبت در حافظهٔ اپیزودیک `("shops_episodic_memory", shop_id)`.
-     - **رادار احتمال موجودی (Pointy Score) + تأیید جمعی خریداران (Waze Check-in):** امتیاز اطمینان ۰ تا ۱۰۰٪ بر اساس تازگی قیمت، خوش‌قولی فروشگاه و گزارش حضوری کاربران.
-     - **کارت رزرو حضوری ۲ ساعته (QR Price-Lock Pass) + دکمهٔ نجات فوری در پاساژ (`🚨 الان جلوی مغازه‌ام و بسته است!`):** جایگزین‌یابی ۳ لایه در کمتر از ۲ ثانیه بر اساس مختصات همان پاساژ.
-2. **مهندسی داده مبتنی بر ۱۵ یافتهٔ گزارش EDA (۲۰ امتیاز دیتاست):**
-   - پالایش غیرمخرب ۱۷,۸۷۳ آفر معیوب (`15,083` بدون قیمت، `2,282` سنتینل `<=1K` تومان، `508` سرریز `>2B` تومان)، اصلاح خطای ۱۰ برابری ریال/تومان (`245` آفر) و تفکیک واحد فروش تکی/متری از کلاف/رول/بسته روی `offers.seller_title` (`2,464` آفر).
-   - موتور دوگانهٔ قیمت منصفانه (میانهٔ وزنی برای `38,899` کالای چندفروشنده‌ای + رگرسیون هدونیک `log10(price_toman)` برای `187,004` کالای تک‌آفر).
-3. **معماری مدل‌های خودبسنده: `deepseek-v4.1-flash` + دروازهٔ System-1 (`Jev`, `Mizan-4B`, `Kev`, `Laya`) (۹۰ امتیاز هوشمندی و فنی):**
-   - اتصال بهینه به `deepseek-v4.1-flash` از طریق پراکسی متیس با فعال‌سازی `cache: {"ttl": "5m"}`.
-   - مسیریابی، تشخیص ناهنجاری کاتالوگ و گاردریل ضد Prompt Injection در ~۴۰ میلی‌ثانیه با `SystemOneDecisionGateway`.
-4. **آمادهٔ دیپلوی روی لیارا و ۱۰۰٪ مستقل (۴۰ امتیاز دیپلوی):**
-   - دارای `Dockerfile`، `liara.json`، `docker-compose.yml` و اسکریپت ممیزی امنیتی `scripts/security_audit.py`.
+A next-generation **Agentic O2O (Online-to-Offline) Visual & Map-First Shopping Concierge** tailored for physical shopping hubs across Tehran, engineered for the **Torob Challenge** in the StarCoach & Quera Agentic AI Hackathon.
 
-## راه‌اندازی سریع
+---
+
+## Key Features & Architecture (300/300 Evaluation Matrix Points)
+
+### 1. Map-First & Chatless User Experience (150 Product & UX Points)
+- **Design System Fidelity:** Full alignment with Torob's signature aesthetic (`#D73948`, Vazirmatn typography) featuring a bidirectional map-centric radar, a 4-step journey stepper, and 11 interactive GenUI components.
+- **4 Novel O2O Mechanisms to Solve In-Person Shopping Friction:**
+  - **Zero-Awkwardness AI Proxy:** Automated voice and SMS verification of item availability and real-time price without forcing uncomfortable cold calls from the user.
+  - **1-Tap Seller Micro-Webhook:** 2-second inventory and price confirmations by shop owners via lightweight tokens (zero app install/login required), persisted directly to episodic memory `("shops_episodic_memory", shop_id)`.
+  - **Stock Confidence Radar (Pointy Score) + Shopper Crowdsourcing:** 0–100% confidence rating calculated from price freshness, vendor reliability history, and physical buyer check-ins.
+  - **2-Hour QR Price-Lock Pass + In-Passage Emergency Fallback (`🚨 I'm at the shop and it's closed!`):** Instant 3-tier fallback matching in under 2 seconds based on precise shopping mall and corridor coordinates.
+
+### 2. Data Engineering Driven by 15 Exploratory Data Analysis (EDA) Insights (20 Points)
+- **Non-Destructive Cleansing:** Sanitization of 17,873 defective offers (15,083 missing prices, 2,282 sentinel `<= 1K` Toman items, and 508 overflow `> 2B` Toman anomalies).
+- **Unit & Currency Rectification:** Fixes 10x Rial/Toman discrepancies (245 offers) and disambiguates single-unit vs bundle/roll packaging in `offers.seller_title` (2,464 offers).
+- **Dual Fair-Price Engine:** Computes weighted median pricing for 38,899 multi-seller items and hedonic regression (`log10(price_toman)`) for 187,004 single-offer catalog entries.
+
+### 3. Self-Contained Cognitive Architecture (90 Intelligence & Technical Points)
+- **Hybrid System-1 / System-2 Execution:**
+  - **System 1 (`SystemOneDecisionGateway`):** Sub-40ms routing, catalog anomaly filtering, and prompt injection defense powered by unified adapters (`Jev`, `Mizan-4B`, `Kev`, `Laya`).
+  - **System 2 (`deepseek-v4.1-flash`):** High-level reasoning through the Metis proxy with active cache acceleration (`cache: {"ttl": "5m"}`).
+
+### 4. Production-Ready Deployment & Autonomy (40 Deployment Points)
+- **Self-Contained & Audited:** Complete with `Dockerfile`, `liara.json`, `docker-compose.yml`, and an automated security validation script (`scripts/security_audit.py`).
+
+---
+
+## Quick Start Guide
+
 ```bash
+# 1. Configure environment variables
 cp .env.example .env
-# قرار دادن METIS_API_KEY در فایل .env
+# Set your METIS_API_KEY in .env
+
+# 2. Run automated security and dependency audit
 python3 scripts/security_audit.py
+
+# 3. Launch full-stack application (Backend + Frontend)
 docker compose up --build
 ```
